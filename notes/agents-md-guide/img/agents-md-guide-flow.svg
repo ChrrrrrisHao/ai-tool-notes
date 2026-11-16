@@ -13,7 +13,7 @@
   <rect width="1200" height="420" fill="#fbf8f1"/>
   <rect width="1200" height="420" fill="url(#grid)"/>
 
-  <text x="600" y="58" text-anchor="middle" font-size="26" font-weight="700" fill="#1d2433">一套規則，持續產生一致的新頁面</text>
+  <text x="600" y="58" text-anchor="middle" font-size="26" font-weight="700" fill="#1d2433">新增一篇筆記的流程</text>
 
   <g stroke="#1d2433" stroke-width="2" fill="none" marker-end="url(#arrow)">
     <path d="M217 185H261"/>
@@ -57,5 +57,5 @@
   <rect x="628" y="314" width="184" height="32" rx="16" fill="#fbf8f1"/>
   <text x="720" y="336" text-anchor="middle" font-size="17" font-weight="700" fill="#d9482b">有錯誤 → 回到 AI 修正</text>
 
-  <text x="600" y="392" text-anchor="middle" font-size="16" fill="#7c8496">metadata 由 data/notes.json 統一管理：首頁卡片、篩選、上下篇自動更新</text>
+  <text x="600" y="392" text-anchor="middle" font-size="16" fill="#7c8496">標題、分類這些資料記在 data/notes.json，首頁會自己更新</text>
 </svg>

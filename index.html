@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AI 工具學習筆記站</title>
-  <meta name="description" content="用同一套 AGENTS.md 規則寫成的 AI 工具筆記。每篇 10 分鐘內讀完，讀完就能動手。">
+  <meta name="description" content="我學 AI 工具時整理的筆記，每篇都照同一個格式寫，10 分鐘內可以讀完。">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,16 +35,13 @@
 
   <main>
     <section class="container hero">
-      <span class="hero__eyebrow">一套規則 → 無限篇筆記</span>
       <h1 class="hero__title">AI 工具學習筆記站</h1>
       <p class="hero__lead">
-        用同一套 <code>AGENTS.md</code> 規則寫成的 AI 工具筆記。每篇 10 分鐘內讀完：先看<mark>三個重點</mark>，再照步驟動手，最後用小測驗確認自己真的懂了。
+        這是我學 AI 工具時整理的筆記。每篇的格式都一樣：先講重點，再一步一步做一次，最後有幾題小測驗可以自己檢查。
       </p>
-      <ul class="stats" aria-label="網站統計">
-        <li><strong id="stat-notes">–</strong><span>篇筆記</span></li>
-        <li><strong id="stat-cats">–</strong><span>個分類</span></li>
-        <li><strong id="stat-minutes">–</strong><span>分鐘讀完</span></li>
-      </ul>
+      <p class="hero__meta">
+        目前有 <strong id="stat-notes">–</strong> 篇筆記、<strong id="stat-cats">–</strong> 個分類，全部讀完大約 <strong id="stat-minutes">–</strong> 分鐘。
+      </p>
     </section>
 
     <section class="container" id="notes" aria-labelledby="notes-title">
@@ -63,33 +60,33 @@
     </section>
 
     <section class="container howto" aria-labelledby="howto-title">
-      <h2 class="howto__title" id="howto-title">這個網站怎麼長出新頁面？</h2>
+      <h2 class="howto__title" id="howto-title">這個網站怎麼做的</h2>
       <p class="howto__lead">
-        每一篇筆記都是 AI 依照同一套規則產生的。規則寫在
-        <a href="https://github.com/ChrrrrrisHao/ai-tool-notes/blob/main/AGENTS.md" target="_blank" rel="noopener">AGENTS.md</a>，
-        在 Claude Code 裡只要一句話就能新增一篇：
+        每篇筆記都是我請 AI 照著
+        <a href="https://github.com/ChrrrrrisHao/ai-tool-notes/blob/main/AGENTS.md" target="_blank" rel="noopener">AGENTS.md</a>
+        寫的，所以格式才會都一樣。想加新的一篇，在 Claude Code 打這行就好：
       </p>
       <pre class="code code--prompt" data-lang="Claude Code"><code>/new-note RAG 入門</code></pre>
       <div class="howto__grid">
         <article class="howto__item">
           <span class="howto__num">1</span>
-          <h3>規則：AGENTS.md</h3>
-          <p>寫清楚目的、資料夾結構、命名、七個固定區塊、寫作規範與 SOP。AI 開工前先讀它。</p>
+          <h3>AGENTS.md</h3>
+          <p>寫給 AI 看的規則：檔案放哪、檔名怎麼取、每篇要有哪些段落、哪些事不能做。</p>
         </article>
         <article class="howto__item">
           <span class="howto__num">2</span>
-          <h3>模板：templates/note.html</h3>
-          <p>七個區塊已經排好，AI 只負責填內容；版面、樣式、互動全部共用，不會越寫越亂。</p>
+          <h3>templates/note.html</h3>
+          <p>筆記模板，七個段落已經排好，AI 只要把內容填進去。</p>
         </article>
         <article class="howto__item">
           <span class="howto__num">3</span>
-          <h3>登記：data/notes.json</h3>
-          <p>筆記 metadata 的唯一來源。登記一筆，首頁卡片、篩選、上下篇導覽就自動更新。</p>
+          <h3>data/notes.json</h3>
+          <p>每篇的標題、分類、日期都記在這裡，首頁的卡片是從這裡讀出來的。</p>
         </article>
         <article class="howto__item">
           <span class="howto__num">4</span>
-          <h3>檢查：check_notes.py</h3>
-          <p>把規則變成程式：缺區塊、命名錯誤、沒登記、模板沒填完都會被抓出來，每次 push 自動執行。</p>
+          <h3>check_notes.py</h3>
+          <p>寫完跑一次，少段落、檔名錯、忘記登記都會被挑出來。push 到 GitHub 時也會自動跑。</p>
         </article>
       </div>
     </section>

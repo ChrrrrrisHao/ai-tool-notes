@@ -1,50 +1,50 @@
-# AI 工具學習筆記站（AI Tool Notes）
+# AI 工具學習筆記站
 
-用同一套 `AGENTS.md` 規則寫成的 AI 工具筆記。每篇 10 分鐘內讀完：先看三個重點，再照步驟動手，最後用小測驗確認自己懂了。
+我學 AI 工具時整理的筆記網站。每篇都照同一個格式寫：重點、說明、步驟、範例、常見錯誤、小測驗、延伸閱讀。
 
-- 🌐 網站：<https://chrrrrrishao.github.io/ai-tool-notes/>
-- 📏 專案規則：[AGENTS.md](AGENTS.md)（Claude Code 透過 [CLAUDE.md](CLAUDE.md) 匯入）
-- 🧩 元件庫：<https://chrrrrrishao.github.io/ai-tool-notes/components.html>
+- 網站：<https://chrrrrrishao.github.io/ai-tool-notes/>
+- 規則：[AGENTS.md](AGENTS.md)（Claude Code 透過 [CLAUDE.md](CLAUDE.md) 讀同一份）
+- 元件庫：<https://chrrrrrishao.github.io/ai-tool-notes/components.html>
 
-## 這個專案想解決什麼
+## 為什麼這樣做
 
-一般 Vibe Coding 的重點是「把這一頁做出來」。這個專案的重點是**建立一套規則**，讓 AI 之後能用同樣的方式、很快地繼續長出新頁面，而且每一頁的結構、風格、品質都一致。
+之前用 AI 做網頁，通常是這一頁做完就結束，下一頁又要重新跟 AI 講一次要什麼。這次我先把規則寫成 `AGENTS.md`，再讓 AI 照著規則寫，所以之後要加新筆記，只要給主題就好，格式和風格都會跟前面一樣。
 
-| 層 | 檔案 | 作用 |
-|---|---|---|
-| 規則 | `AGENTS.md` | 目的、結構、命名、七個固定區塊、寫作規範、SOP、要做／不要做 |
-| 模板 | `templates/note.html` | 七個區塊排好，AI 只填內容 |
-| 資料 | `data/notes.json` | 筆記 metadata 唯一來源，首頁與上下篇自動產生 |
-| 元件 | `assets/css/style.css`、`components.html` | 只能用既有元件，風格不會跑掉 |
-| 自動化 | `scripts/new_note.py` | 一行指令建立骨架並登記 |
-| 檢查 | `scripts/check_notes.py`、GitHub Actions | 把規則變成程式，AI 做錯會被抓出來 |
-| 指令 | `.claude/commands/new-note.md` | 在 Claude Code 輸入 `/new-note <主題>` 就跑完整流程 |
+## 專案裡有什麼
+
+| 檔案 | 用途 |
+|---|---|
+| `AGENTS.md` | 給 AI 看的規則：結構、命名、每篇的固定段落、寫作方式、新增步驟、不能做的事 |
+| `templates/note.html` | 筆記模板，段落已經排好 |
+| `data/notes.json` | 每篇筆記的標題、分類、日期，首頁從這裡讀 |
+| `assets/css/style.css`、`components.html` | 樣式和可以用的元件 |
+| `scripts/new_note.py` | 建立新筆記的骨架並登記 |
+| `scripts/check_notes.py` | 檢查有沒有照規則寫，push 時 GitHub Actions 也會跑 |
+| `.claude/commands/new-note.md` | Claude Code 的 `/new-note` 指令 |
 
 ## 新增一篇筆記
 
-**用 Claude Code：**
+用 Claude Code：
 
 ```text
 /new-note RAG 入門
 ```
 
-**用其他 AI 工具：** 請它「讀 AGENTS.md，依第 10 節 A 流程新增一篇主題為 RAG 入門的筆記」。
+用其他 AI 工具：請它讀 `AGENTS.md`，照第 10 節 A 的步驟新增一篇。
 
-**手動：**
+自己手動：
 
 ```bash
 python scripts/new_note.py rag-intro "RAG 入門" "先查資料再回答，讓 AI 少說錯話。" --category concept --level 1 --minutes 7 --tags RAG,LLM
-# 依 AGENTS.md 第 5 節填完 notes/rag-intro/index.html
+# 照 AGENTS.md 第 5 節把 notes/rag-intro/index.html 填完
 python scripts/check_notes.py
 ```
 
-## 本機預覽
+## 在自己電腦上看
 
 ```bash
 python -m http.server 8000
-# 開啟 http://localhost:8000
+# 開 http://localhost:8000
 ```
 
-## 技術
-
-純 HTML + CSS + 原生 JavaScript，無建置步驟；GitHub Pages 從 `main` 分支根目錄發布。外部資源只有 Google Fonts。
+純 HTML、CSS、JavaScript，不用安裝套件，也沒有建置步驟。

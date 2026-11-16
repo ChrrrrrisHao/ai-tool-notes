@@ -58,7 +58,7 @@
         <section class="note-section" id="what">
           <h2>是什麼</h2>
           <p>Claude Code 是 Anthropic 推出的 AI 程式開發工具。和在網頁聊天視窗貼程式碼不同，它直接在你的<mark>專案資料夾裡工作</mark>：可以搜尋與閱讀整個專案、一次修改多個檔案、執行測試或指令，再依結果繼續修正。</p>
-          <p>它可以在終端機（CLI）使用，也有桌面 App、網頁版，以及 VS Code、JetBrains 等編輯器外掛（截至 2026-11）。使用前需要登入 Claude 訂閱帳號，或使用 Anthropic API 金鑰。</p>
+          <p>它可以在終端機（CLI）使用，也有桌面 App、網頁版，以及 VS Code、JetBrains 等編輯器外掛（截至 2026-11）。使用前需要登入 Claude 訂閱帳號，或使用 Anthropic API 金鑰。這個網站就是我用 Claude Code 照著 <code>AGENTS.md</code> 做出來的。</p>
           <aside class="callout callout--note">
             <p class="callout__title">比喻一下</p>
             <p>把它想成一位坐在你電腦前的實習工程師：手腳很快、會自己翻資料，但每次要改檔案或跑指令之前，都會先問你可不可以。</p>
@@ -129,19 +129,19 @@ claude -c                     # 接續上一次的對話
           <h2>常見錯誤</h2>
           <aside class="callout callout--warn">
             <p class="callout__title">任務講得太模糊</p>
-            <p>「幫我把網站變好看」只能讓它用猜的。<strong>避免：</strong>寫出具體目標、可以改的範圍和完成條件，像上面的範例一樣。</p>
+            <p>「幫我把網站變好看」這種講法，它只能用猜的。要寫出想改什麼、可以動哪些檔案、怎樣算做完，像上面那個範例。</p>
           </aside>
           <aside class="callout callout--warn">
             <p class="callout__title">沒看變更就全部同意</p>
-            <p>它可能改到你沒預期的檔案。<strong>避免：</strong>同意前先看改了哪裡；動手前先 <code>git commit</code> 一次，出錯時可以還原。</p>
+            <p>它有時會改到你沒想到的檔案。同意前先看一下改了哪裡；動手前先 <code>git commit</code> 一次，改壞了還能還原。</p>
           </aside>
           <aside class="callout callout--warn">
             <p class="callout__title">一個對話塞太多不相關的事</p>
-            <p>對話越長、主題越雜，回答品質越差。<strong>避免：</strong>一件事做完就 <code>/clear</code>，再開始下一件。</p>
+            <p>對話拉太長、主題又雜，回答品質會明顯變差。一件事做完就 <code>/clear</code>，再開始下一件。</p>
           </aside>
           <aside class="callout callout--warn">
             <p class="callout__title">把密碼或 API 金鑰貼進對話</p>
-            <p>機密資訊可能被寫進檔案、甚至被 commit。<strong>避免：</strong>機密放在 <code>.env</code> 並加入 <code>.gitignore</code>，只告訴 AI「金鑰在環境變數裡」。</p>
+            <p>機密可能被寫進檔案，甚至跟著 commit 傳上 GitHub。把它放在 <code>.env</code>、加進 <code>.gitignore</code>，跟 AI 說「金鑰在環境變數裡」就好。</p>
           </aside>
         </section>
 

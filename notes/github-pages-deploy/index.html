@@ -58,7 +58,7 @@
         <section class="note-section" id="what">
           <h2>是什麼</h2>
           <p>GitHub Pages 是 GitHub 提供的靜態網站託管服務。只要把網頁檔案放進 GitHub repository、打開設定，GitHub 就會幫你產生一個網址，格式是 <code>https://&lt;帳號&gt;.github.io/&lt;repo 名稱&gt;/</code>。</p>
-          <p>「靜態」的意思是：伺服器只負責把檔案原封不動傳給瀏覽器，<mark>不能執行 PHP、資料庫等後端程式</mark>。像本站這樣只有 HTML、CSS、JavaScript 的網站剛好適合。免費帳號的 repo 需要設為公開（Public）才能使用 Pages（截至 2026-11）。</p>
+          <p>「靜態」的意思是：伺服器只負責把檔案原封不動傳給瀏覽器，<mark>不能執行 PHP、資料庫等後端程式</mark>。像這個網站只有 HTML、CSS、JavaScript，就很適合放在上面。免費帳號的 repo 需要設為公開（Public）才能使用 Pages（截至 2026-11）。</p>
           <aside class="callout callout--note">
             <p class="callout__title">檔案和網址的對應</p>
             <p>根目錄的 <code>index.html</code> 對應 <code>/ai-tool-notes/</code>；<code>notes/agents-md-guide/index.html</code> 對應 <code>/ai-tool-notes/notes/agents-md-guide/</code>。資料夾裡放 <code>index.html</code>，網址就可以省略檔名。</p>
@@ -122,19 +122,19 @@ gh api repos/&lt;帳號&gt;/ai-tool-notes/pages</code></pre>
           <h2>常見錯誤</h2>
           <aside class="callout callout--warn">
             <p class="callout__title">用了 / 開頭的絕對路徑</p>
-            <p>本機正常，上線後樣式全部消失。因為網站在 <code>/repo 名稱/</code> 子路徑下，<code>/assets/style.css</code> 會指到錯的位置。<strong>避免：</strong>一律用相對路徑，例如 <code>../../assets/css/style.css</code>。</p>
+            <p>本機看起來正常，一上線樣式就全部不見。因為網站放在 <code>/repo 名稱/</code> 底下，<code>/assets/style.css</code> 會跑去網域根目錄找檔案。路徑一律用相對路徑，例如 <code>../../assets/css/style.css</code>。</p>
           </aside>
           <aside class="callout callout--warn">
             <p class="callout__title">檔名大小寫不一致</p>
-            <p>Windows 不分大小寫，GitHub Pages 會分，<code>Logo.PNG</code> 和 <code>logo.png</code> 是兩個不同的檔案。<strong>避免：</strong>檔名全部用小寫。</p>
+            <p>Windows 不分大小寫，GitHub Pages 會分，<code>Logo.PNG</code> 和 <code>logo.png</code> 在線上是兩個不同的檔案。檔名乾脆全部用小寫。</p>
           </aside>
           <aside class="callout callout--warn">
             <p class="callout__title">直接雙擊 HTML 預覽</p>
-            <p>用 <code>file://</code> 開啟時，<code>fetch</code> 讀不到 JSON，頁面看起來是空的。<strong>避免：</strong>用 <code>python -m http.server</code> 開本機伺服器預覽。</p>
+            <p>用 <code>file://</code> 開的話，<code>fetch</code> 讀不到 JSON，頁面會是空的。要先用 <code>python -m http.server</code> 開本機伺服器再看。</p>
           </aside>
           <aside class="callout callout--warn">
             <p class="callout__title">剛 push 完就說沒更新</p>
-            <p>部署需要時間，瀏覽器也有快取。<strong>避免：</strong>等一兩分鐘，再按 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd> 強制重新整理。</p>
+            <p>部署要一點時間，瀏覽器也有快取。等個一兩分鐘，再按 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd> 強制重新整理。</p>
           </aside>
         </section>
 

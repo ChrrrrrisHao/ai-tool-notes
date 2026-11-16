@@ -58,10 +58,10 @@
         <section class="note-section" id="what">
           <h2>是什麼</h2>
           <p><code>README.md</code> 是寫給「人」看的專案介紹；<code>AGENTS.md</code> 和 <code>CLAUDE.md</code> 則是寫給「AI 代理」看的<mark>工作守則</mark>。AI 每次開始工作前會先讀它，就像新同事報到第一天拿到的員工手冊。</p>
-          <p><code>AGENTS.md</code> 是一種開放格式，OpenAI Codex、Cursor、Gemini CLI、GitHub Copilot 等許多工具都會讀取；<code>CLAUDE.md</code> 是 Claude Code 每次啟動自動載入的記憶檔，而且可以用 <code>@檔名</code> 匯入其他檔案。所以常見作法是：規則只寫在 <code>AGENTS.md</code>，<code>CLAUDE.md</code> 裡放一行 <code>@AGENTS.md</code>，兩邊就不會不同步——本站就是這樣做的。</p>
+          <p><code>AGENTS.md</code> 是一種開放格式，OpenAI Codex、Cursor、Gemini CLI、GitHub Copilot 等許多工具都會讀取；<code>CLAUDE.md</code> 是 Claude Code 每次啟動自動載入的記憶檔，而且可以用 <code>@檔名</code> 匯入其他檔案。所以常見作法是：規則只寫在 <code>AGENTS.md</code>，<code>CLAUDE.md</code> 裡放一行 <code>@AGENTS.md</code>，兩邊就不會不同步。這個網站也是這樣做的。</p>
           <figure class="figure">
             <img src="img/agents-md-guide-flow.svg" alt="流程圖：AGENTS.md 規則加上模板，經 AI 產生新筆記，再由檢查腳本驗證，錯誤回饋給 AI 修正" width="1200" height="420" loading="lazy">
-            <figcaption>規則 → 模板 → AI 產生內容 → 腳本檢查，錯了就回到 AI 修正。</figcaption>
+            <figcaption>這個網站新增筆記的流程：寫錯的地方會被檢查腳本擋下來，再交回給 AI 改。</figcaption>
           </figure>
           <div class="table-wrap">
             <table class="table">
@@ -125,19 +125,19 @@
           <h2>常見錯誤</h2>
           <aside class="callout callout--warn">
             <p class="callout__title">寫空話</p>
-            <p>「請寫出高品質、好看的頁面」AI 無法照做。<strong>避免：</strong>改成可以驗證的句子，例如「每篇剛好 3 個重點、每條 ≤ 30 字」。</p>
+            <p>「請寫出高品質、好看的頁面」這種句子，AI 沒辦法照做。要改成能檢查的寫法，例如「每篇剛好 3 個重點、每條不超過 30 字」。</p>
           </aside>
           <aside class="callout callout--warn">
             <p class="callout__title">規則和實際檔案不同步</p>
-            <p>改了資料夾卻沒改文件，AI 就會照舊規則做錯。<strong>避免：</strong>把「改結構時要同步更新哪幾處」也寫成一條規則。</p>
+            <p>資料夾改了、文件沒改，AI 就會照舊的規則做錯。我的做法是把「改結構時要一起改哪幾個地方」也寫成一條規則。</p>
           </aside>
           <aside class="callout callout--warn">
             <p class="callout__title">只寫「不要」，沒寫「要怎樣」</p>
-            <p>AI 知道不能做什麼，卻不知道該怎麼做。<strong>避免：</strong>每條禁止事項都附上正確作法或範例。</p>
+            <p>AI 知道什麼不能做，但不知道該怎麼做。每條「不要」最好都附上正確寫法或範例。</p>
           </aside>
           <aside class="callout callout--warn">
             <p class="callout__title">文件太長又自相矛盾</p>
-            <p>AI 可能只照前半段做，或在兩條規則間亂選。<strong>避免：</strong>開頭放 30 秒摘要，並寫明「衝突時以哪份為準」。</p>
+            <p>AI 可能只照前半段做，或在兩條規則之間亂選。開頭放一段簡短摘要，再寫清楚衝突時以哪一份為準。</p>
           </aside>
         </section>
 
