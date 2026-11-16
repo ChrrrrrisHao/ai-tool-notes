@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AGENTS.md 與 CLAUDE.md｜AI 工具學習筆記站</title>
+  <meta name="description" content="寫給 AI 看的專案說明書，讓它照你的規則做事。">
+  <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <script src="../../assets/js/theme.js"></script>
+</head>
+<body data-page="note" data-root="../../" data-slug="agents-md-guide">
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="../../index.html">
+        <img src="../../assets/img/favicon.svg" alt="" width="30" height="30">
+        AI 工具學習筆記站<span class="brand__sub">AI Tool Notes</span>
+      </a>
+      <nav class="site-nav" aria-label="主選單">
+        <a class="site-nav__wide" href="../../index.html#notes">筆記</a>
+        <a href="../../components.html">元件庫</a>
+        <a class="site-nav__wide" href="https://github.com/ChrrrrrisHao/ai-tool-notes" target="_blank" rel="noopener">GitHub</a>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="切換深淺色">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container note-layout">
+    <div class="note-main">
+      <nav class="breadcrumb" aria-label="麵包屑">
+        <a href="../../index.html">首頁</a><span aria-hidden="true">/</span><a id="crumb-cat" href="../../index.html">筆記</a>
+      </nav>
+
+      <header class="note-header">
+        <div class="note-meta" id="note-meta"></div>
+        <h1>AGENTS.md 與 CLAUDE.md</h1>
+        <p class="note-header__summary">寫給 AI 看的專案說明書，讓它照你的規則做事。</p>
+      </header>
+
+      <article class="note-body">
+        <section class="note-section" id="tldr">
+          <h2>三個重點</h2>
+          <ul class="keypoints">
+            <li>放在專案根目錄、AI 開工前會先讀的 Markdown 檔。</li>
+            <li>內容是目的、結構、命名、模板、流程與禁止事項。</li>
+            <li>規則越具體、越能被程式檢查，AI 越不會亂改。</li>
+          </ul>
+        </section>
+
+        <section class="note-section" id="what">
+          <h2>是什麼</h2>
+          <p><code>README.md</code> 是寫給「人」看的專案介紹；<code>AGENTS.md</code> 和 <code>CLAUDE.md</code> 則是寫給「AI 代理」看的<mark>工作守則</mark>。AI 每次開始工作前會先讀它，就像新同事報到第一天拿到的員工手冊。</p>
+          <p><code>AGENTS.md</code> 是一種開放格式，OpenAI Codex、Cursor、Gemini CLI、GitHub Copilot 等許多工具都會讀取；<code>CLAUDE.md</code> 是 Claude Code 每次啟動自動載入的記憶檔，而且可以用 <code>@檔名</code> 匯入其他檔案。所以常見作法是：規則只寫在 <code>AGENTS.md</code>，<code>CLAUDE.md</code> 裡放一行 <code>@AGENTS.md</code>，兩邊就不會不同步——本站就是這樣做的。</p>
+          <figure class="figure">
+            <img src="img/agents-md-guide-flow.svg" alt="流程圖：AGENTS.md 規則加上模板，經 AI 產生新筆記，再由檢查腳本驗證，錯誤回饋給 AI 修正" width="1200" height="420" loading="lazy">
+            <figcaption>規則 → 模板 → AI 產生內容 → 腳本檢查，錯了就回到 AI 修正。</figcaption>
+          </figure>
+          <div class="table-wrap">
+            <table class="table">
+              <thead><tr><th>檔案</th><th>寫給誰</th><th>誰會自動讀</th><th>典型內容</th></tr></thead>
+              <tbody>
+                <tr><td><code>README.md</code></td><td>人</td><td>GitHub 首頁顯示</td><td>專案介紹、怎麼安裝、怎麼使用</td></tr>
+                <tr><td><code>AGENTS.md</code></td><td>各種 AI 代理</td><td>Codex、Cursor 等工具</td><td>專案規則、結構、流程、禁止事項</td></tr>
+                <tr><td><code>CLAUDE.md</code></td><td>Claude Code</td><td>Claude Code</td><td>匯入 <code>AGENTS.md</code>＋ Claude 專用補充</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="note-section" id="how">
+          <h2>怎麼用</h2>
+          <ol class="steps">
+            <li><strong>寫下專案目的與對象</strong><p>一句話定位、讀者是誰，再加上「不做什麼」。AI 有了方向才知道怎麼取捨。</p></li>
+            <li><strong>畫出資料夾結構</strong><p>用樹狀圖標出每個資料夾放什麼，再附一張「這個東西該放哪」對照表。</p></li>
+            <li><strong>定義命名規則</strong><p>用 ✅／❌ 的正反範例說明，比抽象描述有效得多。</p></li>
+            <li><strong>固定內容模板</strong><p>例如本站每篇筆記都是七個固定區塊，AI 只負責填內容，版面永遠一致。</p></li>
+            <li><strong>寫出標準作業流程</strong><p>把「新增」「修改」「下架」拆成編號步驟，AI 照著做就不會漏。</p></li>
+            <li><strong>列出要做與不要做</strong><p>尤其是「不要做」，例如不准引入框架、不准刪除既有頁面。</p></li>
+            <li><strong>把規則變成檢查</strong><p>寫一支腳本自動檢查規則，AI 做完自己跑、錯了自己修。</p></li>
+          </ol>
+        </section>
+
+        <section class="note-section" id="example">
+          <h2>實際範例</h2>
+          <h3>最小可用的 AGENTS.md 骨架</h3>
+          <pre class="code" data-lang="markdown"><code># AGENTS.md — 我的專案
+
+## 1. 專案目的
+- 一句話定位：……
+- 目標讀者：……
+- 不做：……
+
+## 2. 資料夾結構
+（樹狀圖，加上每個資料夾放什麼）
+
+## 3. 命名規則
+- 檔名：小寫英文＋連字號，例如 rag-intro
+- ❌ 不要：中文檔名、空白、大寫
+
+## 4. 內容模板
+每一頁固定包含：……（列出區塊與數量）
+
+## 5. 新增內容的步驟
+1. 複製 templates/page.html
+2. 填完所有區塊
+3. 執行 python scripts/check.py，零錯誤才算完成
+
+## 6. 不要做
+- 不要引入新框架
+- 不要刪除既有頁面</code></pre>
+          <h3>讓 Claude Code 共用同一份規則</h3>
+          <pre class="code" data-lang="markdown"><code># CLAUDE.md
+@AGENTS.md</code></pre>
+        </section>
+
+        <section class="note-section" id="pitfalls">
+          <h2>常見錯誤</h2>
+          <aside class="callout callout--warn">
+            <p class="callout__title">寫空話</p>
+            <p>「請寫出高品質、好看的頁面」AI 無法照做。<strong>避免：</strong>改成可以驗證的句子，例如「每篇剛好 3 個重點、每條 ≤ 30 字」。</p>
+          </aside>
+          <aside class="callout callout--warn">
+            <p class="callout__title">規則和實際檔案不同步</p>
+            <p>改了資料夾卻沒改文件，AI 就會照舊規則做錯。<strong>避免：</strong>把「改結構時要同步更新哪幾處」也寫成一條規則。</p>
+          </aside>
+          <aside class="callout callout--warn">
+            <p class="callout__title">只寫「不要」，沒寫「要怎樣」</p>
+            <p>AI 知道不能做什麼，卻不知道該怎麼做。<strong>避免：</strong>每條禁止事項都附上正確作法或範例。</p>
+          </aside>
+          <aside class="callout callout--warn">
+            <p class="callout__title">文件太長又自相矛盾</p>
+            <p>AI 可能只照前半段做，或在兩條規則間亂選。<strong>避免：</strong>開頭放 30 秒摘要，並寫明「衝突時以哪份為準」。</p>
+          </aside>
+        </section>
+
+        <section class="note-section" id="quiz">
+          <h2>小測驗</h2>
+          <div class="quiz" data-answer="b">
+            <p class="quiz__q">1. 下列哪一句最適合寫進 AGENTS.md？</p>
+            <ol class="quiz__options">
+              <li><button type="button" data-option="a">請把網站做得專業一點</button></li>
+              <li><button type="button" data-option="b">slug 用小寫英文加連字號，例如 rag-intro</button></li>
+              <li><button type="button" data-option="c">AI 要很聰明</button></li>
+            </ol>
+            <p class="quiz__explain">解析：具體、有範例、可以被檢查的規則，AI 才能穩定照做。</p>
+          </div>
+          <div class="quiz" data-answer="b">
+            <p class="quiz__q">2. 想讓 Claude Code 和其他 AI 工具共用同一份規則，比較好的做法是？</p>
+            <ol class="quiz__options">
+              <li><button type="button" data-option="a">兩份檔案各寫一份完整規則</button></li>
+              <li><button type="button" data-option="b">規則寫在 AGENTS.md，CLAUDE.md 用 @AGENTS.md 匯入</button></li>
+              <li><button type="button" data-option="c">只寫在 README.md</button></li>
+            </ol>
+            <p class="quiz__explain">解析：規則只有一個來源，就不會出現兩份內容不一致的問題。</p>
+          </div>
+          <div class="quiz" data-answer="c">
+            <p class="quiz__q">3. 為什麼要搭配檢查腳本？</p>
+            <ol class="quiz__options">
+              <li><button type="button" data-option="a">讓網站跑得更快</button></li>
+              <li><button type="button" data-option="b">GitHub 規定一定要有</button></li>
+              <li><button type="button" data-option="c">讓規則能被自動驗證，AI 做錯可以自己發現</button></li>
+            </ol>
+            <p class="quiz__explain">解析：文件是「說」，腳本是「查」。兩者搭配，AI 才能自己檢查、自己修正。</p>
+          </div>
+          <p class="quiz-score" id="quiz-score" aria-live="polite"></p>
+        </section>
+
+        <section class="note-section" id="refs">
+          <h2>延伸閱讀</h2>
+          <ul class="refs">
+            <li><a href="https://agents.md/" target="_blank" rel="noopener">AGENTS.md 官方網站</a><span>格式說明，以及支援 AGENTS.md 的工具列表。</span></li>
+            <li><a href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener">Claude Code：記憶與 CLAUDE.md</a><span>CLAUDE.md 的位置與 @ 匯入語法。</span></li>
+            <li><a href="https://github.com/ChrrrrrisHao/ai-tool-notes/blob/main/AGENTS.md" target="_blank" rel="noopener">本站的 AGENTS.md</a><span>一份完整的實際範例，可以直接參考。</span></li>
+          </ul>
+        </section>
+      </article>
+
+      <nav class="pager" id="pager" aria-label="上一篇與下一篇"></nav>
+    </div>
+
+    <aside class="toc" aria-label="本頁目錄">
+      <div class="toc__inner">
+        <p class="toc__title">本頁目錄</p>
+        <ol id="toc-list"></ol>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <span>© <span id="year">2026</span> AI 工具學習筆記站・依 <a href="https://github.com/ChrrrrrisHao/ai-tool-notes/blob/main/AGENTS.md" target="_blank" rel="noopener">AGENTS.md</a> 規則持續擴充</span>
+      <a href="../../index.html">← 回首頁</a>
+    </div>
+  </footer>
+
+  <script src="../../assets/js/main.js" defer></script>
+</body>
+</html>

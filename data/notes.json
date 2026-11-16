@@ -1,0 +1,64 @@
+{
+  "notes": [
+    {
+      "slug": "claude-code-basics",
+      "title": "Claude Code 入門",
+      "summary": "在終端機裡和 AI 一起讀程式、改檔案、跑指令。",
+      "category": "tool",
+      "level": 1,
+      "minutes": 8,
+      "updated": "2026-11-16",
+      "tags": [
+        "Claude Code",
+        "CLI",
+        "Agent"
+      ],
+      "order": 1
+    },
+    {
+      "slug": "agents-md-guide",
+      "title": "AGENTS.md 與 CLAUDE.md",
+      "summary": "寫給 AI 看的專案說明書，讓它照你的規則做事。",
+      "category": "concept",
+      "level": 1,
+      "minutes": 7,
+      "updated": "2026-11-16",
+      "tags": [
+        "AGENTS.md",
+        "CLAUDE.md",
+        "規則設計"
+      ],
+      "order": 2
+    },
+    {
+      "slug": "prompt-basics",
+      "title": "Prompt 基本功：五個要素",
+      "summary": "把需求講清楚：背景、任務、限制、格式、範例。",
+      "category": "skill",
+      "level": 1,
+      "minutes": 6,
+      "updated": "2026-11-16",
+      "tags": [
+        "Prompt",
+        "ChatGPT",
+        "Claude"
+      ],
+      "order": 3
+    },
+    {
+      "slug": "github-pages-deploy",
+      "title": "用 GitHub Pages 發布網站",
+      "summary": "免費把靜態網站放上網路，push 完一兩分鐘就上線。",
+      "category": "workflow",
+      "level": 1,
+      "minutes": 7,
+      "updated": "2026-11-16",
+      "tags": [
+        "GitHub",
+        "GitHub Pages",
+        "git"
+      ],
+      "order": 4
+    }
+  ]
+}
