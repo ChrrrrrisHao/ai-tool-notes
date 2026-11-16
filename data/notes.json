@@ -59,6 +59,21 @@
         "git"
       ],
       "order": 4
+    },
+    {
+      "slug": "rag-intro",
+      "title": "RAG 入門",
+      "summary": "先查資料再回答，讓 AI 少說錯話。",
+      "category": "concept",
+      "level": 2,
+      "minutes": 8,
+      "updated": "2026-11-16",
+      "tags": [
+        "RAG",
+        "Embedding",
+        "LLM"
+      ],
+      "order": 5
     }
   ]
 }
