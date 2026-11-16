@@ -62,7 +62,8 @@ ai-tool-notes/
 ├── components.html           ← 元件庫：所有可用元件的實際樣子與 HTML 寫法
 ├── .nojekyll                 ← 告訴 GitHub Pages 不要跑 Jekyll
 ├── data/
-│   └── notes.json            ← 筆記登記表（metadata 的唯一來源）
+│   ├── notes.json            ← 筆記登記表（metadata 的唯一來源）
+│   └── site.json             ← 站名、英文副標、GitHub repo（換主題時用，見第 14 節）
 ├── notes/
 │   └── <slug>/
 │       ├── index.html        ← 一篇筆記（主檔名永遠是 index.html）
@@ -76,6 +77,7 @@ ai-tool-notes/
 │   └── img/                  ← 全站共用圖示（favicon 等）
 ├── scripts/
 │   ├── new_note.py           ← 建立新筆記骨架並登記到 notes.json（SOP A 第 3、4、6 步）
+│   ├── rename_site.py        ← 一次換掉所有頁面的站名、副標、GitHub 連結（第 14 節）
 │   └── check_notes.py        ← 規則檢查腳本（純 Python 標準函式庫）
 ├── .claude/commands/
 │   └── new-note.md           ← Claude Code 指令：/new-note <主題>
@@ -93,6 +95,7 @@ ai-tool-notes/
 | 新的元件樣式 | `assets/css/style.css`（同步更新 `components.html` 與本文件第 7 節） |
 | 新的互動功能 | `assets/js/main.js`（用 class 或 `data-*` 觸發，不在頁面內寫 `<script>`） |
 | 新的頂層頁面 | 根目錄 `<name>.html`，`data-root="./"`，並加到頁首導覽列 |
+| 站名、副標、repo 位置 | `data/site.json`，用 `scripts/rename_site.py` 修改，不要手動逐頁改 |
 
 ---
 
@@ -293,10 +296,10 @@ ai-tool-notes/
 > **捷徑：** 第 3、4、6 步可以用一行指令完成，接著直接做第 5 步：
 >
 > ```bash
-> python scripts/new_note.py rag-intro "RAG 入門" "先查資料再回答，讓 AI 少說錯話。" --category concept --level 1 --minutes 7 --tags RAG,LLM
+> python scripts/new_note.py mcp-intro "MCP 入門" "讓 AI 連上外部工具和資料的共通規格。" --category concept --level 2 --minutes 7 --tags MCP,Agent
 > ```
 >
-> 在 Claude Code 裡可以直接用 `/new-note RAG 入門`，整個流程會自動跑完。
+> 在 Claude Code 裡可以直接用 `/new-note MCP 入門`，整個流程會自動跑完。`notes/rag-intro/` 就是照這個流程新增的，可以當成「照規則新增」的範例。
 
 ### B. 修改既有筆記
 
@@ -335,7 +338,7 @@ ai-tool-notes/
 
 **不要做：**
 - 不要修改 `templates/`、`assets/`、`scripts/`，除非任務明確要求。
-- 不要刪除既有筆記（用 `draft` 下架）。
+- 不要刪除既有筆記（用 `draft` 下架）。唯一例外是第 14 節換主題。
 - 不要新增 `package.json`、建置工具或任何框架。
 - 不要在頁面寫 inline style、`<style>` 或 `<script>` 區塊。
 - 不要手寫筆記頁的分類、難度、日期等 meta（由 `main.js` 產生）。
@@ -372,3 +375,29 @@ ai-tool-notes/
 - [ ] 首頁卡片、篩選、搜尋正常；筆記頁目錄與上下篇正常
 - [ ] 手機寬度（375px）沒有橫向捲軸；深色模式看得清楚
 - [ ] `CHANGELOG.md` 已新增紀錄
+
+---
+
+## 14. 換成別的主題（重複使用這套架構）
+
+這套架構不只能做 AI 筆記，也可以改成課程講義、讀書筆記、作品集。照下面的順序改，最後跑檢查腳本：
+
+| 步驟 | 要改什麼 | 怎麼改 |
+|---|---|---|
+| 1 | 站名、英文副標、GitHub 連結 | `python scripts/rename_site.py --name "新站名" --sub "English Name" --repo 帳號/repo`，會一次改好所有頁面，並更新 `data/site.json`。可以先加 `--dry-run` 看會改哪些檔案 |
+| 2 | 分類 | 照第 10 節 D 改四個地方 |
+| 3 | 每頁的固定段落 | 本文件第 5 節表格、`templates/note.html`、`scripts/check_notes.py` 的 `SECTIONS`，三處一起改。目錄由 `main.js` 自動產生，不用改 |
+| 4 | 配色 | 只改 `style.css` 的 `:root` token，淺色和深色兩組都要改 |
+| 5 | 範例筆記 | 刪掉 `notes/` 裡的範例，並把 `notes.json` 的 `notes` 清空。**只有換主題時可以刪筆記**，平常下架一律用 `draft` |
+| 6 | 本文件第 1 節 | 改成新的目的、讀者、不做什麼 |
+| 7 | 檢查 | `python scripts/check_notes.py` 零錯誤，再照第 10 節 A 新增第一篇 |
+
+**例子：改成「資料結構講義站」**
+
+```bash
+python scripts/rename_site.py --name "資料結構講義站" --sub "DS Lessons" --repo 帳號/ds-lessons
+```
+
+- 分類：`basic` 基礎、`linear` 線性結構、`tree` 樹、`graph` 圖
+- 固定段落：學習目標 → 觀念說明 → 圖解 → 程式碼 → 常見錯誤 → 練習題 → 延伸閱讀
+- 不用動的部分：模板機制、`notes.json`、檢查腳本、`/new-note` 指令、GitHub Pages 部署方式

@@ -26,7 +26,11 @@ from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parent.parent
-SITE_NAME = "AI 工具學習筆記站"
+# 站名統一記在 data/site.json（換站名請用 scripts/rename_site.py）
+try:
+    SITE_NAME = json.loads((ROOT / "data" / "site.json").read_text(encoding="utf-8"))["name"]
+except (OSError, ValueError, KeyError):
+    SITE_NAME = ""
 
 # 新增分類時要同步修改（AGENTS.md 第 10 節 D）
 CATEGORIES = {"tool": "工具", "concept": "概念", "skill": "技巧", "workflow": "流程"}
@@ -472,12 +476,29 @@ def check_top_pages() -> int:
             err(path, '根目錄頁面的 <body> 必須有 data-root="./"')
         if p.body.get("data-page") not in ("home", "components"):
             err(path, "<body data-page> 必須是 home 或 components")
+        if SITE_NAME and not p.title.endswith(SITE_NAME):
+            err(path, f"<title> 結尾必須是站名「{SITE_NAME}」（data/site.json）")
     return count
+
+
+def check_site() -> None:
+    path = ROOT / "data" / "site.json"
+    try:
+        site = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as e:
+        err(path, f"無法讀取或不是合法 JSON：{e}")
+        return
+    for key in ("name", "sub", "repo"):
+        if not isinstance(site.get(key), str) or not site[key].strip():
+            err(path, f"缺少欄位 {key}")
+    if isinstance(site.get("repo"), str) and site["repo"].count("/") != 1:
+        err(path, "repo 格式必須是 帳號/repo 名稱")
 
 
 def main() -> int:
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
+    check_site()
     notes = check_registry()
     for n in notes:
         check_note(n)

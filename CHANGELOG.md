@@ -10,3 +10,4 @@
 - 2026-11-16 note: 新增 prompt-basics（Prompt 基本功：五個要素）
 - 2026-11-16 note: 新增 github-pages-deploy（用 GitHub Pages 發布網站）
 - 2026-11-16 note: 新增 rag-intro（RAG 入門），照 /new-note 流程：new_note.py 建骨架 → 填七個區塊 → check_notes.py 通過
+- 2026-11-16 feat: 新增 data/site.json 與 scripts/rename_site.py，AGENTS.md 加第 14 節「換成別的主題」

@@ -7,8 +7,8 @@
   3. 在 data/notes.json 新增一筆（order = 目前最大值 + 1，updated = 今天）
 
 用法：
-  python scripts/new_note.py rag-intro "RAG 入門" "先查資料再回答，讓 AI 少說錯話。" \
-      --category concept --level 1 --minutes 7 --tags RAG,LLM
+  python scripts/new_note.py mcp-intro "MCP 入門" "讓 AI 連上外部工具和資料的共通規格。" \
+      --category concept --level 2 --minutes 7 --tags MCP,Agent
 
 之後請依 AGENTS.md 第 5 節填完七個區塊，再執行 python scripts/check_notes.py。
 """

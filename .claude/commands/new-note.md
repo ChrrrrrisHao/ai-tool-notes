@@ -1,6 +1,6 @@
 ---
 description: 依 AGENTS.md 規則新增一篇筆記（建立骨架、填內容、登記、檢查）
-argument-hint: <筆記主題，例如：RAG 入門>
+argument-hint: <筆記主題，例如：MCP 入門>
 ---
 
 請新增一篇主題為「$ARGUMENTS」的筆記，嚴格依照 `AGENTS.md` 執行：
